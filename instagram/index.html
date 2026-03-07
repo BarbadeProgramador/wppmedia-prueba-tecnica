@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WPP Media - Technical Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <button id="downloadReport" class="btn-report">Descargar Análisis de Interacción</button>
+
+    <div id="adContainer" class="ad-container">
+        <div class="insta-header">
+            <div class="user-info">
+                <div class="user-avatar">W</div>
+                <div class="user-name">
+                    <strong>wppmedia</strong>
+                    <span>Publicidad</span>
+                </div>
+            </div>
+            <div class="dots-menu">•••</div>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="slide" data-url="https://wpp.com/1"><img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=400&h=400&fit=crop"></div>
+                <div class="slide" data-url="https://wpp.com/2"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=400&fit=crop"></div>
+                <div class="slide" data-url="https://wpp.com/3"><img src="https://images.unsplash.com/photo-1551288049-bbbda5366392?w=400&h=400&fit=crop"></div>
+            </div>
+            <button class="nav-btn prev" id="prevBtn">&#10094;</button>
+            <button class="nav-btn next" id="nextBtn">&#10095;</button>
+            <div class="carousel-dots" id="carouselDots">
+                <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+        </div>
+
+        <div class="insta-footer">
+            <div class="interaction-bar">
+                <div class="left-icons">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </div>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="likes-count"><strong>1,245 Me gusta</strong></div>
+            <div class="caption">
+                <p><strong>wppmedia</strong> Global advertising revenue will grow 8.8% in 2025...</p>
+            </div>
+            <button class="cta-banner" id="mainCta">Más información</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

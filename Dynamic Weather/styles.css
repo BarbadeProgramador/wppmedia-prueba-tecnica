@@ -1,0 +1,238 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.weather-banner {
+    position: relative;
+    background: #000;
+    color: white;
+    width: 300px;
+    height: 600px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    box-sizing: border-box;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: transform 0.3s ease;
+}
+
+.weather-banner:hover {
+    transform: scale(1.01);
+}
+
+/* Texto de fondo editorial */
+.bg-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bg-text-stroke {
+    font-size: 150px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.06);
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -5px;
+}
+
+/* Header y Widget de Clima */
+.header-overlay {
+    position: relative;
+    z-index: 5;
+}
+
+.brand-logo {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.weather-widget {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 8px;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.city-name {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+}
+
+.temp-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.w-icon {
+    font-size: 20px;
+}
+
+.temperature {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.condition {
+    font-size: 10px;
+    background: #ccff00;
+    color: #000;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+/* SECCIÓN DE PRODUCTO (TAMAÑO EQUILIBRADO) */
+.product-showcase {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px 0;
+}
+
+.shoe-img {
+    width: 85%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+    transition: opacity 0.5s ease;
+    animation: floatingShoe 4s ease-in-out infinite;
+}
+
+.shoe-shadow {
+    position: absolute;
+    width: 140px;
+    height: 10px;
+    background: rgba(0,0,0,0.4);
+    bottom: 10%;
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: shadowPulse 4s ease-in-out infinite;
+    z-index: -1;
+}
+
+/* Footer y Textos */
+.footer-overlay {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+}
+
+.shoe-model-name {
+    font-size: 11px;
+    font-weight: 800;
+    color: #ccff00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.ad-copy h2 {
+    font-size: 32px;
+    font-weight: 900;
+    margin: 0;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: 0.9;
+    margin-bottom: 10px;
+}
+
+.ad-copy p {
+    font-size: 14px;
+    margin: 0 0 25px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.4;
+}
+
+.cta-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    background: #fff;
+    color: #000;
+    font-weight: 900;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.weather-banner:hover .cta-btn {
+    background: #ccff00;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(204, 255, 0, 0.3);
+}
+
+/* Animaciones */
+@keyframes floatingShoe {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes shadowPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(0.8); opacity: 0.2; }
+}
+
+/* Efectos de Clima */
+.weather-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.rain {
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="2" height="20"><rect width="1" height="15" fill="rgba(255,255,255,0.15)"/></svg>');
+    animation: rainFall 0.5s linear infinite;
+}
+
+@keyframes rainFall {
+    from { background-position: 0 0; }
+    to { background-position: 0 400px; }
+}
+
+.sun {
+    background: radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 40%);
+}
+
+.fog {
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.05), transparent);
+}

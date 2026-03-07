@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Brokers - Mobile Ad Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <button id="downloadReport" class="btn-report">Descargar Análisis de Interacción</button>
+
+    <div class="banner">
+        <video id="videoAd" muted autoplay loop playsinline>
+            <source src="assets/video/7578614-uhd_2160_4096_25fps.mp4" type="video/mp4">
+        </video>
+
+        <div id="videoTouchLayer" class="video-touch-layer"></div>
+
+        <div class="app-interface">
+            <div class="app-header goto-link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+                </svg>
+                <span class="header-mid">Anuncio sugerido</span>
+                <button class="btn-app">Abrir app</button>
+            </div>
+
+            <div class="video-tools">
+                <div id="muteToggle" class="tool-circle is-muted">
+                    <svg class="icon-on" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                    <svg class="icon-off" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.4.32-.84.58-1.32.76v2.06c1.02-.22 1.97-.68 2.8-1.32L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="action-btn" id="likeBtn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                        <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+                    </svg>
+                    <span id="likeCount">2100</span>
+                </div>
+                <div class="action-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                        <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18z"/>
+                    </svg>
+                    <span>54</span>
+                </div>
+                <div class="action-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+                        <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                    </svg>
+                    <span>18</span>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="brand-row goto-link">
+                    <div class="brand-logo">IB</div>
+                    <div class="brand-text">
+                        <strong>Interactive Brokers <small>✓</small></strong>
+                        <span>Publicidad</span>
+                    </div>
+                    <button class="btn-follow">Seguir</button>
+                </div>
+                <p class="ad-copy">Trade Global Markets: Acciones, opciones y futuros desde una sola plataforma potente.</p>
+                <button id="ctaBtn" class="cta-main">Más información</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
