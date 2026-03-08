@@ -1,0 +1,123 @@
+/* --- VARIABLES DE MARCA --- */
+:root {
+    --primary-green: #2d5a27;
+    --accent-lime: #ccff00;
+    --dark-bg: #111;
+    --text-light: rgba(255, 255, 255, 0.9);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- CONTENEDOR BASE (300x600) --- */
+.garden-banner {
+    width: 300px;
+    height: 600px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0d1a0d 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* --- ADAPTABILIDAD 300x250 (Punto 4) --- */
+@media (max-height: 300px) {
+    .garden-banner {
+        height: 250px;
+        padding: 15px;
+    }
+    .product-showcase {
+        height: 100px;
+        margin: 5px 0;
+    }
+    .ad-copy h2 {
+        font-size: 22px;
+    }
+    .ad-copy p {
+        display: none; /* Evita desbordamiento en el banner pequeño */
+    }
+    .bg-text-stroke {
+        font-size: 80px;
+    }
+}
+
+/* --- ELEMENTOS VISUALES --- */
+.bg-text-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.bg-text-stroke {
+    font-size: 140px;
+    font-weight: 900;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.04);
+    text-transform: uppercase;
+    letter-spacing: -5px;
+}
+
+.brand-logo {
+    font-weight: 900;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--accent-lime);
+    z-index: 5;
+}
+
+.product-showcase {
+    position: relative;
+    z-index: 4;
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-img {
+    width: 85%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+    animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.cta-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent-lime);
+    color: #000;
+    border: none;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    background: #fff;
+    transform: scale(1.02);
+}

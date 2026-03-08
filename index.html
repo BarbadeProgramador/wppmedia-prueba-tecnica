@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Técnica Test WPP | Juan</title>
+    <style>
+        :root {
+            --wpp-blue: #0005d9;
+            --dark-bg: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --accent: #ccff00; /* Color de EverGreen */
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+        }
+
+        p.subtitle {
+            color: #888;
+            margin-bottom: 3rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: white;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent);
+            box-shadow: 0 10px 30px rgba(204, 255, 0, 0.1);
+        }
+
+        .project-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.4;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            background: var(--wpp-blue);
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .icon { font-size: 1.5rem; }
+
+        @media (max-width: 600px) {
+            .project-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Prueba Técnica Test WPP</h1>
+    <p class="subtitle">Especialista en Innovación | Desarrollo de Inteligencia Artificial</p>
+
+    <div class="project-grid">
+        
+        <a href="facebook/index.html" class="project-card">
+            <span class="badge">Social Ads</span>
+            <h3><span class="icon">🎬</span> Facebook Video Post</h3>
+            <p>Banner interactivo 300x600/320x480 con medición de eventos (Play/Pause) y métricas de interacción.</p>
+        </a>
+
+        <a href="instagram/index.html" class="project-card">
+            <span class="badge">Engagement</span>
+            <h3><span class="icon">🎠</span> Instagram Carousel</h3>
+            <p>Galería dinámica con navegación individual, URLs múltiples y tracking de clics por imagen.</p>
+        </a>
+
+        <a href="Dynamic-Weather/index.html" class="project-card">
+            <span class="badge">Real-Time Data</span>
+            <h3><span class="icon">☁️</span> Weather Banner</h3>
+            <p>Conexión a API de clima para ciudades de Colombia con animaciones avanzadas y DCO basado en temperatura.</p>
+        </a>
+
+        <a href="API-dinamica/index.html" class="project-card" style="border-left: 4px solid var(--accent);">
+            <span class="badge" style="background: var(--accent); color: black;">AI & Endpoint</span>
+            <h3><span class="icon">🌱</span> Dynamic Banner</h3>
+            <p>Integración con API personalizada (Google Sheets), contenidos generados por IA y rotación dinámica de 30 registros.</p>
+        </a>
+
+    </div>
+
+</body>
+</html>
