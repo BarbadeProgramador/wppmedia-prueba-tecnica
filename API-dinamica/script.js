@@ -13,7 +13,7 @@ const backupInventory = [
         Product: "KIT BOTÁNICO IA",
         Headline: "CULTIVA EL FUTURO",
         Subheadline: "Sistemas de riego inteligentes con sensores de humedad.",
-        Image_URL: "assets/img/soraOpenAi.jpg", // Usa tus imágenes locales para asegurar carga
+        Image_URL: "/assets/img/soraOpenAi.jpg", // Usa tus imágenes locales para asegurar carga
         CTA_Text: "DESCUBRIR"
     },
     {
@@ -21,7 +21,7 @@ const backupInventory = [
         Product: "FERTILIZANTE DCO",
         Headline: "FLORECE CON PRECISIÓN",
         Subheadline: "Nutrición basada en algoritmos de crecimiento.",
-        Image_URL: "assets/img/codexIA.png",
+        Image_URL: "/assets/img/codexIA.png",
         CTA_Text: "VER MÁS"
     },
     {
@@ -29,7 +29,7 @@ const backupInventory = [
         Product: "PALA EVERGREEN",
         Headline: "DISEÑO INNOVADOR",
         Subheadline: "Ergonomía superior para jardines urbanos.",
-        Image_URL: "assets/img/dalleE.png",
+        Image_URL: "/assets/img/dalleE.png",
         CTA_Text: "COMPRAR"
     }
 ];
