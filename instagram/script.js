@@ -54,7 +54,7 @@ slides.forEach((slide, index) => {
 mainCta.onclick = () => {
     metrics.ctaClicks++;
     console.log("Métrica - Clic en CTA:", metrics.ctaClicks);
-    window.open("https://www.wpp.com", "_blank");
+    window.open("https://www.openai.com", "_blank");
 };
 
 // --- GENERACIÓN DEL PDF (ESTILO DASHBOARD) ---
@@ -72,7 +72,7 @@ downloadBtn.addEventListener('click', () => {
     doc.setFont("helvetica", "normal");
     doc.setTextColor(100);
     doc.text(`Fecha de generación: ${new Date().toLocaleString()}`, 20, 40);
-    doc.text(`Campaña: WPP Media Global Revenue 2025`, 20, 47);
+    doc.text(`Campaña: OpenIA Aprende sobre la IA`, 20, 47);
     
     // Línea divisoria
     doc.setDrawColor(219, 219, 219); // Color del borde de Instagram #dbdbdb
