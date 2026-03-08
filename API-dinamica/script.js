@@ -1,87 +1,55 @@
 /**
- * EVERGREEN - DCO Engine
- * Assessment para WPP Media
+ * EVERGREEN - DCO Engine (WPP Assessment)
  */
 
-// 1. Tu Endpoint Real de MockAPI
+// URL de tu MockAPI con los 30 registros
 const ENDPOINT_URL = "https://69acd808b50a169ec87e2256.mockapi.io/api/v1/banners";
 
-/**
- * Función principal para consumir la API y actualizar el banner
- */
-async function fetchBannerData() {
-    const bannerEl = document.getElementById('adBanner');
-    
+async function fetchBannerContent() {
     try {
-        console.log("Conectando con el motor DCO...");
+        console.log("Iniciando conexión con el endpoint...");
         const response = await fetch(ENDPOINT_URL);
         
-        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+        if (!response.ok) throw new Error("Error en la respuesta de la API");
 
-        const allRecords = await response.json();
-        
-        // REQUERIMIENTO: Mostrar contenido diferente en cada recarga
-        if (allRecords && allRecords.length > 0) {
-            const randomIndex = Math.floor(Math.random() * allRecords.length);
-            const selectedItem = allRecords[randomIndex];
-            
-            console.log("Contenido dinámico seleccionado:", selectedItem.product);
-            updateFrontend(selectedItem);
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+            // Seleccionar un registro aleatorio de los 30 disponibles
+            const randomAd = data[Math.floor(Math.random() * data.length)];
+            updateUI(randomAd);
         }
-
     } catch (error) {
-        console.error("Falla en la conexión API. Usando Fallback local.", error);
-        // Fallback en caso de error de red
+        console.error("Fallo DCO:", error);
+        // Fallback en caso de error
         document.getElementById('headline').innerText = "EVERGREEN SOLUTIONS";
-    } finally {
-        // Mostrar el banner con una pequeña transición
-        if (bannerEl) bannerEl.style.opacity = "1";
     }
 }
 
-/**
- * Mapea los datos del JSON a los elementos HTML
- * @param {Object} data - Registro individual del endpoint
- */
-function updateFrontend(data) {
-    // Texto y Contenido
-    setElementContent('cityName', data.country);
-    setElementContent('productType', data.product);
-    setElementContent('headline', data.headline);
-    setElementContent('subheadline', data.subheadline);
-    setElementContent('ctaButton', data.cta_text);
+function updateUI(ad) {
+    // Mapeo de datos al HTML
+    document.getElementById('cityName').innerText = ad.country.toUpperCase();
+    document.getElementById('productType').innerText = ad.product.toUpperCase();
+    document.getElementById('headline').innerText = ad.headline.toUpperCase();
+    document.getElementById('subheadline').innerText = ad.subheadline;
+    document.getElementById('ctaButton').innerText = ad.cta_text || "DESCUBRIR";
 
-    // Imagen con validación
-    const imageEl = document.getElementById('productImage');
-    if (imageEl && data.image_url) {
-        imageEl.src = data.image_url;
-        
-        // Animación simple: aparecer suavemente cuando cargue la imagen
-        imageEl.onload = () => {
-            imageEl.classList.add('fade-in');
-        };
+    const img = document.getElementById('productImage');
+    if (img && ad.image_url) {
+        img.src = ad.image_url;
+        img.onload = () => img.classList.add('loaded');
     }
+
+    // Toque extra: Temperatura aleatoria basada en clima DCO
+    const temp = Math.floor(Math.random() * (32 - 18) + 18);
+    document.getElementById('temperature').innerText = `${temp}°`;
 }
 
-/**
- * Función auxiliar para evitar errores si el ID no existe
- */
-function setElementContent(id, text) {
-    const el = document.getElementById(id);
-    if (el) {
-        el.innerText = text ? text.toUpperCase() : "";
-    }
-}
+// Iniciar al cargar el DOM
+document.addEventListener('DOMContentLoaded', fetchBannerContent);
 
-// Inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', fetchBannerData);
-
-// Tracking de clics (Esencial para WPP)
-const ctaBtn = document.getElementById('ctaButton');
-if (ctaBtn) {
-    ctaBtn.addEventListener('click', () => {
-        const product = document.getElementById('productType').innerText;
-        console.log(`[DCO Tracking] Click en producto: ${product}`);
-        // window.open('https://evergreen.com', '_blank');
-    });
-}
+// Tracking de clics
+document.getElementById('adBanner').addEventListener('click', () => {
+    const pName = document.getElementById('productType').innerText;
+    console.log(`[TRACKING] Usuario interesado en: ${pName}`);
+});
