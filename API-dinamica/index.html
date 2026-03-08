@@ -3,43 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EverGreen Dynamic Banner | WPP Assessment</title>
+    <title>EverGreen Ultra-Wide | DCO Engine</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div id="adBanner" class="garden-banner">
-        
-        <div id="weatherEffects" class="weather-effects"></div>
-
-        <div class="bg-text-container">
-            <span class="bg-text-stroke">GROW</span>
+    <div id="adBanner" class="garden-banner-wide">
+        <div class="tech-bar">
+            <span class="status-dot"></span>
+            <span class="tech-label">SINCRO: <span class="highlight">API via mockAPI.io</span></span>
+            <span class="tech-version">v2.0.6-DCO</span>
         </div>
 
-        <div class="header-overlay">
-            <div class="brand-logo">EVERGREEN</div>
-            <div class="weather-widget">
-                <div class="city-name" id="cityName">CARGANDO...</div>
-                <div class="temp-row">
-                    <span id="weatherIcon" class="w-icon">🌱</span>
-                    <span class="temperature" id="temperature">--°</span>
-                    <span class="condition" id="condition">DCO ACTIVE</span>
+        <div class="glow-effect"></div>
+        
+        <div class="content-wrapper">
+            <div class="info-section">
+                <div class="brand-badge">EVERGREEN AI</div>
+                <p id="productType" class="product-tag">CARGANDO...</p>
+                <h2 id="headline">CONECTANDO MOTOR...</h2>
+                <p id="subheadline" class="subheadline">Sincronizando catálogo con el servidor de IA...</p>
+                
+                <div class="action-row">
+                    <button id="ctaButton" class="cta-btn-wide">ADQUIRIR AHORA</button>
+                    <div class="weather-pill">
+                        <span id="cityName">UBICACIÓN</span> | <span id="temperature">--°</span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="product-showcase">
-            <img id="productImage" src="" alt="Producto EverGreen" class="main-img">
-            <div class="shadow-effect"></div>
-        </div>
-
-        <div class="footer-overlay">
-            <div class="ad-copy">
-                <p id="productType" class="product-tag"></p>
-                <h2 id="headline">CONECTANDO API...</h2>
-                <p id="subheadline">Sincronizando con el catálogo de IA...</p>
+            <div class="product-showcase-wide">
+                <div class="bg-text-back">TECH</div>
+                <img id="productImage" src="" alt="Producto" class="main-img-wide">
             </div>
-            <button id="ctaButton" class="cta-btn">DESCUBRIR</button>
         </div>
     </div>
 
