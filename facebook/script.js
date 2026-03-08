@@ -19,12 +19,12 @@ const metrics = {
 };
 
 
-// // Forzar reproducción al cargar
-// window.addEventListener('DOMContentLoaded', () => {
-//     video.play().catch(error => {
-//         console.log("Autoplay esperando interacción del usuario");
-//     });
-// });
+// Forzar reproducción al cargar
+window.addEventListener('DOMContentLoaded', () => {
+    video.play().catch(error => {
+        console.log("Autoplay esperando interacción del usuario");
+    });
+});
 
 // 1. Manejo de Play/Pause
 videoTouch.addEventListener('click', () => {
