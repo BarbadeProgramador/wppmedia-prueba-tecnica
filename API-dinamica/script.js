@@ -1,101 +1,87 @@
 /**
- * EVERGREEN - DCO Engine (WPP Assessment)
- * Estrategia: Fetch Real con Fallback Local (Anti-CORS)
+ * EVERGREEN - DCO Engine
+ * Assessment para WPP Media
  */
 
-const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbw2HfG3UMxsXrtlBd4atlATrSVG3nOe4CQxs6qGRi0LDJ6JfuE2jc7hXBcjyrDR8MtYwg/exec";
+// 1. Tu Endpoint Real de MockAPI
+const ENDPOINT_URL = "https://69acd808b50a169ec87e2256.mockapi.io/api/v1/banners";
 
-// --- DATOS DE RESPALDO (MOCK DATA) ---
-// Esto asegura que si la API falla, el banner siga siendo impresionante.
-const backupInventory = [
-    {
-        Country: "BOGOTÁ",
-        Product: "KIT BOTÁNICO IA",
-        Headline: "CULTIVA EL FUTURO",
-        Subheadline: "Sistemas de riego inteligentes con sensores de humedad.",
-        Image_URL: "/assets/img/soraOpenAi.jpg", // Usa tus imágenes locales para asegurar carga
-        CTA_Text: "DESCUBRIR"
-    },
-    {
-        Country: "MEDELLÍN",
-        Product: "FERTILIZANTE DCO",
-        Headline: "FLORECE CON PRECISIÓN",
-        Subheadline: "Nutrición basada en algoritmos de crecimiento.",
-        Image_URL: "/assets/img/codexIA.png",
-        CTA_Text: "VER MÁS"
-    },
-    {
-        Country: "CALI",
-        Product: "PALA EVERGREEN",
-        Headline: "DISEÑO INNOVADOR",
-        Subheadline: "Ergonomía superior para jardines urbanos.",
-        Image_URL: "/assets/img/dalleE.png",
-        CTA_Text: "COMPRAR"
-    }
-];
-
-async function fetchGardenData() {
-    console.log("Iniciando sincronización DCO...");
-
+/**
+ * Función principal para consumir la API y actualizar el banner
+ */
+async function fetchBannerData() {
+    const bannerEl = document.getElementById('adBanner');
+    
     try {
-        // Intentamos la petición real
+        console.log("Conectando con el motor DCO...");
         const response = await fetch(ENDPOINT_URL);
         
-        if (!response.ok) throw new Error("Error en servidor Google");
+        if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
 
         const allRecords = await response.json();
         
+        // REQUERIMIENTO: Mostrar contenido diferente en cada recarga
         if (allRecords && allRecords.length > 0) {
-            console.log("API Real conectada:", allRecords.length, "registros.");
-            const selected = allRecords[Math.floor(Math.random() * allRecords.length)];
-            updateFrontend(selected);
-        } else {
-            throw new Error("API vacía");
+            const randomIndex = Math.floor(Math.random() * allRecords.length);
+            const selectedItem = allRecords[randomIndex];
+            
+            console.log("Contenido dinámico seleccionado:", selectedItem.product);
+            updateFrontend(selectedItem);
         }
 
     } catch (error) {
-        console.warn("CORS/Red detectado. Activando Capa de Resiliencia (Mock Data).");
-        
-        // Seleccionamos uno al azar de nuestros datos de respaldo
-        const fallbackItem = backupInventory[Math.floor(Math.random() * backupInventory.length)];
-        updateFrontend(fallbackItem);
+        console.error("Falla en la conexión API. Usando Fallback local.", error);
+        // Fallback en caso de error de red
+        document.getElementById('headline').innerText = "EVERGREEN SOLUTIONS";
+    } finally {
+        // Mostrar el banner con una pequeña transición
+        if (bannerEl) bannerEl.style.opacity = "1";
     }
 }
 
+/**
+ * Mapea los datos del JSON a los elementos HTML
+ * @param {Object} data - Registro individual del endpoint
+ */
 function updateFrontend(data) {
-    // Mapeo de elementos con validación de existencia
-    const setElementText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.innerText = text.toUpperCase();
-    };
+    // Texto y Contenido
+    setElementContent('cityName', data.country);
+    setElementContent('productType', data.product);
+    setElementContent('headline', data.headline);
+    setElementContent('subheadline', data.subheadline);
+    setElementContent('ctaButton', data.cta_text);
 
-    setElementText('cityName', data.Country || "LATAM");
-    setElementText('productType', data.Product || "GARDEN TOOL");
-    setElementText('headline', data.Headline || "GROW WITH US");
-    
-    const sub = document.getElementById('subheadline');
-    if (sub) sub.innerText = data.Subheadline || "Soluciones verdes para tu hogar.";
-
-    const img = document.getElementById('productImage');
-    if (img && data.Image_URL) {
-        // Si la URL de la API es absoluta se usa, si no, busca en locales
-        img.src = data.Image_URL;
-        img.onerror = () => { img.src = "assets/img/soraOpenAi.jpg"; }; // Fallback final de imagen
+    // Imagen con validación
+    const imageEl = document.getElementById('productImage');
+    if (imageEl && data.image_url) {
+        imageEl.src = data.image_url;
+        
+        // Animación simple: aparecer suavemente cuando cargue la imagen
+        imageEl.onload = () => {
+            imageEl.classList.add('fade-in');
+        };
     }
+}
 
-    const cta = document.getElementById('ctaButton');
-    if (cta) cta.innerText = data.CTA_Text || "VER MÁS";
+/**
+ * Función auxiliar para evitar errores si el ID no existe
+ */
+function setElementContent(id, text) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.innerText = text ? text.toUpperCase() : "";
+    }
 }
 
 // Inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', fetchGardenData);
+document.addEventListener('DOMContentLoaded', fetchBannerData);
 
-// Tracking de interacción
-document.getElementById('adBanner').addEventListener('click', (e) => {
-    // Evitar que el clic en botones dispare doble evento
-    if(e.target.tagName !== 'BUTTON') {
+// Tracking de clics (Esencial para WPP)
+const ctaBtn = document.getElementById('ctaButton');
+if (ctaBtn) {
+    ctaBtn.addEventListener('click', () => {
         const product = document.getElementById('productType').innerText;
-        console.log(`Click Tracking: Interés en ${product}`);
-        // window.open("https://openai.com", "_blank");
-    }
-});
+        console.log(`[DCO Tracking] Click en producto: ${product}`);
+        // window.open('https://evergreen.com', '_blank');
+    });
+}
