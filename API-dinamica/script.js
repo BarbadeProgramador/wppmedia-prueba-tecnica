@@ -3,88 +3,97 @@
  * Consumo de API personalizada via Google Sheets para WPP Media
  */
 
-// 1. URL de tu aplicación web (Endpoint validado)
+// 1. URL de tu aplicación web (Asegúrate de que termine en /exec)
 const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbw2HfG3UMxsXrtlBd4atlATrSVG3nOe4CQxs6qGRi0LDJ6JfuE2jc7hXBcjyrDR8MtYwg/exec";
 
 /**
- * Función principal para obtener datos del inventario de jardinería
+ * Función principal para obtener datos del inventario
  */
 async function fetchGardenData() {
+    const headlineEl = document.getElementById('headline');
+    const subheadlineEl = document.getElementById('subheadline');
+
     try {
-        // Realizamos la petición con modo 'cors' para evitar el bloqueo del navegador
-        const response = await fetch(ENDPOINT_URL, {
-            method: 'GET',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'text/plain;charset=utf-8',
-            }
-        });
+        // PASO CLAVE PARA CORS: 
+        // No agregues headers personalizados ni 'mode: cors'. 
+        // Una petición simple de fetch es la que mejor funciona con los redirects de Google.
+        const response = await fetch(ENDPOINT_URL);
 
         if (!response.ok) {
-            throw new Error('Error en la comunicación con el servidor de Google');
+            throw new Error(`Error HTTP: ${response.status}`);
         }
 
         const allRecords = await response.json();
+        console.log("Datos sincronizados con éxito:", allRecords);
         
-        // REQUERIMIENTO: Mostrar contenido diferente en cada recarga
         if (allRecords && allRecords.length > 0) {
-            // Seleccionamos un registro al azar de los 30 generados
+            // Seleccionamos un registro al azar (DCO Strategy)
             const randomIndex = Math.floor(Math.random() * allRecords.length);
             const selectedItem = allRecords[randomIndex];
             
-            // Inyectamos los datos en la interfaz
+            // Actualizamos la interfaz
             updateFrontend(selectedItem);
+        } else {
+            throw new Error("La base de datos está vacía");
         }
+
     } catch (error) {
-        console.error("Error al conectar con el inventario EverGreen:", error);
+        console.error("Falla en la conexión DCO:", error);
         
-        // Fallback profesional para asegurar que el banner siempre muestre algo
-        document.getElementById('headline').innerText = "CALIDAD PARA TU JARDÍN";
-        document.getElementById('subheadline').innerText = "Expertos en soluciones verdes.";
+        // Fallback Profesional: Si la API falla, el usuario nunca ve un error, ve una promo genérica.
+        if (headlineEl) headlineEl.innerText = "SOLUCIONES PARA TU JARDÍN";
+        if (subheadlineEl) subheadlineEl.innerText = "Calidad EverGreen en cada rincón.";
+        
+        // Imagen de respaldo por si falla la API
+        const imageEl = document.getElementById('productImage');
+        if (imageEl) imageEl.src = "assets/img/fallback-product.png"; 
     }
 }
 
 /**
- * Mapeo de datos desde el JSON de la API al DOM del Banner
+ * Mapeo de datos al DOM
+ * IMPORTANTE: Verifica que los nombres (data.Country, data.Product, etc.) 
+ * coincidan EXACTAMENTE con las cabeceras de tu Google Sheet.
  */
 function updateFrontend(data) {
-    // Sincronización con los IDs definidos en tu archivo index.html
-    
-    // 1. Ubicación (DCO)
+    // 1. Ubicación
     const cityEl = document.getElementById('cityName');
-    if (cityEl) cityEl.innerText = data.Country || "BOGOTÁ";
+    if (cityEl) cityEl.innerText = (data.Country || "BOGOTÁ").toUpperCase();
 
-    // 2. Información del Producto
+    // 2. Tipo de Producto
     const productEl = document.getElementById('productType');
-    if (productEl) productEl.innerText = data.Product || "GARDEN TOOL";
+    if (productEl) productEl.innerText = data.Product || "GARDEN ESSENTIALS";
 
-    // 3. Textos Creativos
+    // 3. Headline Dinámico
     const headlineEl = document.getElementById('headline');
-    if (headlineEl) headlineEl.innerText = data.Headline || "GROW WITH US";
+    if (headlineEl) headlineEl.innerText = data.Headline || "REINVENTA TU ESPACIO";
 
+    // 4. Subheadline
     const subheadlineEl = document.getElementById('subheadline');
-    if (subheadlineEl) subheadlineEl.innerText = data.Subheadline || "Transforma tu espacio hoy.";
+    if (subheadlineEl) subheadlineEl.innerText = data.Subheadline || "Descubre nuestra nueva colección.";
 
-    // 4. Imagen del Producto (URL desde Google Sheets)
+    // 5. Imagen del Producto
     const imageEl = document.getElementById('productImage');
     if (imageEl && data.Image_URL) {
         imageEl.src = data.Image_URL;
+        // Animación de entrada suave cuando carga la imagen
+        imageEl.onload = () => imageEl.style.opacity = "1";
     }
 
-    // 5. Texto del Botón (CTA)
+    // 6. Botón CTA
     const ctaEl = document.getElementById('ctaButton');
-    if (ctaEl) ctaEl.innerText = data.CTA_Text || "VER MÁS";
+    if (ctaEl) ctaEl.innerText = data.CTA_Text || "VER CATÁLOGO";
 }
 
-// Inicializar la carga de datos al abrir el banner
-window.onload = fetchGardenData;
+// Inicialización
+window.addEventListener('DOMContentLoaded', fetchGardenData);
 
-// Interactividad: Registro de interés del usuario
+// Tracking de clics para el reporte (Muy importante para WPP)
 const bannerEl = document.getElementById('adBanner');
 if (bannerEl) {
     bannerEl.addEventListener('click', () => {
         const product = document.getElementById('productType').innerText;
-        console.log("Interés registrado en: " + product);
-        // Aquí podrías añadir: window.open("tu_url_de_destino", "_blank");
+        console.log(`Evento: Clic en Banner - Producto: ${product}`);
+        // window.open("https://evergreen.com/shop", "_blank");
     });
 }
