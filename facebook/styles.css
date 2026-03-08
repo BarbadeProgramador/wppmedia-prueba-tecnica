@@ -10,7 +10,6 @@ body {
     min-height: 100vh;
 }
 
-/* BOTÓN DE REPORTE CORREGIDO */
 .btn-report {
     position: relative;
     margin-top: 20px;
@@ -41,6 +40,7 @@ body {
     color: #ffffff;
     border-radius: 12px;
     margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 #videoAd {
@@ -50,6 +50,8 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    z-index: 1;
+    display: block;
 }
 
 .video-touch-layer {
@@ -103,6 +105,7 @@ body {
     border-radius: 6px;
     font-weight: bold;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .video-tools {
@@ -123,29 +126,13 @@ body {
 
 .tool-circle svg {
     position: absolute;
-    transition: transform 0.2s ease;
-    transition-property: transform, opacity;
+    transition: transform 0.2s ease, opacity 0.2s;
 }
 
-.tool-circle.is-muted .icon-on {
-    transform: scale(0);
-    opacity: 0;
-}
-
-.tool-circle.is-muted .icon-off {
-    transform: scale(1);
-    opacity: 1;
-}
-
-.tool-circle:not(.is-muted) .icon-on {
-    transform: scale(1);
-    opacity: 1;
-}
-
-.tool-circle:not(.is-muted) .icon-off {
-    transform: scale(0);
-    opacity: 0;
-}
+.tool-circle.is-muted .icon-on { transform: scale(0); opacity: 0; }
+.tool-circle.is-muted .icon-off { transform: scale(1); opacity: 1; }
+.tool-circle:not(.is-muted) .icon-on { transform: scale(1); opacity: 1; }
+.tool-circle:not(.is-muted) .icon-off { transform: scale(0); opacity: 0; }
 
 .sidebar {
     position: absolute;
@@ -170,7 +157,7 @@ body {
 .footer {
     margin-top: auto;
     padding: 20px 15px 30px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9) 40%);
+    background: linear-gradient(transparent, rgba(0,0,0,0.9) 60%);
 }
 
 .brand-row {
@@ -208,6 +195,7 @@ body {
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .ad-copy {
@@ -225,6 +213,11 @@ body {
     border-radius: 6px;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s;
+}
+
+.cta-main:hover {
+    background-color: #145dbf;
 }
 
 .goto-link {
