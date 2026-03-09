@@ -3,31 +3,33 @@
     --deep-forest: #050a05;
     --neon-glow: rgba(204, 255, 0, 0.3);
     --white: #ffffff;
+    --dark-bg: #0a0a0a;
+    --tech-gray: rgba(255, 255, 255, 0.5);
 }
 
 body {
     margin: 0;
-    background-color: #0a0a0a;
+    background-color: var(--dark-bg);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* --- CONTENEDOR TAMAÑO BILLBOARD (970x400) --- */
 .garden-banner-billboard {
     width: 970px;
-    height: 400px; /* Más alto como pediste */
+    max-width: 95vw;
+    height: 400px;
     background-color: var(--deep-forest);
     position: relative;
     overflow: hidden;
     border: 1px solid #1a1a1a;
     display: flex;
     box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    transition: all 0.3s ease;
 }
 
-/* --- BARRA TÉCNICA --- */
 .tech-bar {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 35px;
@@ -40,7 +42,7 @@ body {
     z-index: 100;
     font-family: 'Courier New', monospace;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--tech-gray);
 }
 
 .status-dot {
@@ -53,14 +55,19 @@ body {
 }
 
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
 .tech-label .highlight { color: var(--electric-lime); font-weight: bold; }
 
-/* --- LAYOUT --- */
-.content-wrapper { display: flex; width: 100%; z-index: 10; padding-top: 35px; }
+.content-wrapper { 
+    display: flex; 
+    width: 100%; 
+    z-index: 10; 
+    padding-top: 35px;
+}
 
 .info-section {
     flex: 1.3;
-    padding: 40px 60px;
+    padding: 20px 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,23 +80,29 @@ body {
     font-weight: 900;
     font-size: 12px;
     width: fit-content;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     text-transform: uppercase;
+}
+
+.product-tag { 
+    color: var(--electric-lime); 
+    margin: 0; 
+    letter-spacing: 5px; 
+    font-weight: bold; 
+    font-size: 14px;
 }
 
 #headline {
     color: var(--white);
     font-family: 'Archivo Black', sans-serif;
-    font-size: 56px; /* Letras mucho más grandes */
+    font-size: 56px; 
     line-height: 0.95;
     margin: 15px 0;
     text-transform: uppercase;
 }
 
-.product-tag { color: var(--electric-lime); margin: 0; letter-spacing: 5px; font-weight: bold; }
-
 .description-container {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     border-left: 3px solid var(--electric-lime);
     padding-left: 20px;
     max-width: 500px;
@@ -102,7 +115,12 @@ body {
     margin: 0;
 }
 
-.action-row { display: flex; align-items: center; gap: 30px; }
+.action-row { 
+    display: flex; 
+    align-items: center; 
+    gap: 30px; 
+    flex-wrap: wrap;
+}
 
 .cta-btn-billboard {
     background: var(--white);
@@ -112,7 +130,7 @@ body {
     font-weight: 900;
     font-size: 18px;
     cursor: pointer;
-    transition: 0.4s;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .cta-btn-billboard:hover {
@@ -121,28 +139,36 @@ body {
     box-shadow: 0 15px 30px var(--neon-glow);
 }
 
-.weather-pill { color: var(--white); font-size: 16px; opacity: 0.7; }
+.weather-pill { 
+    color: var(--white); 
+    font-size: 16px; 
+    opacity: 0.7; 
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
 
-/* --- SECCIÓN IMAGEN --- */
 .product-showcase-billboard {
     flex: 0.7;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: radial-gradient(circle at center, rgba(204,255,0,0.05) 0%, transparent 70%);
 }
 
 .bg-text-back {
     position: absolute;
-    font-size: 250px;
+    font-size: 200px;
     font-weight: 900;
     color: rgba(255,255,255,0.02);
     z-index: 1;
+    user-select: none;
 }
 
 .main-img-billboard {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 85%;
+    max-height: 85%;
     object-fit: contain;
     z-index: 2;
     filter: drop-shadow(0 30px 50px rgba(0,0,0,0.8));
@@ -163,4 +189,62 @@ body {
     filter: blur(150px);
     top: -300px; right: -200px;
     pointer-events: none;
+    z-index: 1;
+}
+
+@media (max-width: 900px) {
+    #headline { font-size: 42px; }
+    .info-section { padding: 20px 30px; }
+}
+
+@media (max-width: 600px) {
+    .garden-banner-billboard {
+        flex-direction: column;
+        width: 320px;
+        height: auto;
+        min-height: 600px;
+    }
+
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .info-section {
+        order: 2;
+        padding: 30px 20px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .product-showcase-billboard {
+        order: 1;
+        height: 250px;
+        flex: none;
+    }
+
+    #headline {
+        font-size: 36px;
+        text-align: center;
+    }
+
+    .description-container {
+        border-left: none;
+        border-top: 3px solid var(--electric-lime);
+        padding-left: 0;
+        padding-top: 15px;
+    }
+
+    .action-row {
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .cta-btn-billboard {
+        padding: 15px 30px;
+        font-size: 16px;
+    }
+
+    .bg-text-back {
+        font-size: 120px;
+    }
 }
